@@ -98,8 +98,8 @@ terraform/
 ├── backend.hcl.example
 ├── terraform.tfvars.example
 └── README.md
-´´´
----
+```
+
 ## Recursos provisionados
 Rede
 VPC
