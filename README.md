@@ -100,145 +100,217 @@ terraform/
 └── README.md
 ```
 
+Perfeito — aqui está **essa parte toda refeita em Markdown de verdade**, com títulos, subtítulos, listas e blocos de código prontos para colar no `README.md`.
+
+````md id="v6e1ja"
 ## Recursos provisionados
-Rede
-VPC
-subnet pública
-Internet Gateway
-route table pública
-associação da route table com a subnet
-Segurança
-Security Group compartilhado entre as 4 instâncias
-Compute
-4 EC2 Ubuntu
-instalação automática do Docker via user_data
-associação da key pair SSH
-atribuição de IP público
-nome das instâncias definido por variável
-Instalação automática do Docker
 
-Durante a criação das instâncias, o Terraform executa um user_data que:
+### Rede
 
-instala o Docker
-habilita o serviço
-inicia o serviço
-adiciona o usuário ubuntu ao grupo docker
+- **VPC**
+- **Subnet pública**
+- **Internet Gateway**
+- **Route table pública**
+- **Associação da route table com a subnet**
+
+### Segurança
+
+- **Security Group compartilhado** entre as 4 instâncias
+
+### Compute
+
+- **4 instâncias EC2 Ubuntu**
+- **Instalação automática do Docker** via `user_data`
+- **Associação da key pair SSH**
+- **Atribuição de IP público**
+- **Nome das instâncias definido por variável**
+
+---
+
+## Instalação automática do Docker
+
+Durante a criação das instâncias, o Terraform executa um `user_data` que:
+
+- instala o **Docker**
+- habilita o serviço
+- inicia o serviço
+- adiciona o usuário `ubuntu` ao grupo `docker`
 
 Isso permitiu deixar as VMs prontas para os próximos passos do laboratório.
 
-Backend remoto do Terraform
+---
 
-O projeto utiliza state remoto em bucket S3.
+## Backend remoto do Terraform
 
-Neste laboratório, o bucket foi criado manualmente e configurado no backend.hcl.
+O projeto utiliza **state remoto** em um bucket **S3**.
 
-Exemplo de backend
+Neste laboratório, o bucket foi criado manualmente e configurado no arquivo `backend.hcl`.
+
+### Exemplo de backend
+
+```hcl
 bucket  = "SEU-BUCKET-TERRAFORM-STATE"
 key     = "lab/terraform.tfstate"
 region  = "us-east-1"
 encrypt = true
-Acesso SSH
+````
 
-Após o provisionamento, as 4 instâncias ficaram acessíveis via SSH.
+---
 
-Exemplo:
+## Acesso SSH
 
+Após o provisionamento, as 4 instâncias ficaram acessíveis via **SSH**.
+
+### Exemplo
+
+```bash
 ssh -i ~/.ssh/rancher-kubernetes.pem ubuntu@IP_PUBLICO_DA_INSTANCIA
+```
 
 Os IPs públicos e comandos SSH podem ser consultados pelos outputs do Terraform.
 
-Exemplos
+### Exemplos
+
+```bash
 terraform output
 terraform output ssh_commands
 terraform output ssh_summary
-Docker e imagens do laboratório
+```
+
+---
+
+## Docker e imagens do laboratório
 
 Durante o andamento do curso/lab, também estão sendo trabalhadas imagens Docker para os componentes usados nos exercícios, como por exemplo:
 
-Node
-Nginx
-Redis
-banco de dados
+* **Node**
+* **Nginx**
+* **Redis**
+* **Banco de dados**
 
-Esses artefatos fazem parte do laboratório, mas a configuração completa da camada de orquestração com Rancher/Kubernetes ainda será adicionada nas próximas etapas.
+Esses artefatos fazem parte do laboratório, mas a configuração completa da camada de orquestração com **Rancher/Kubernetes** ainda será adicionada nas próximas etapas.
 
-Route 53 e Traefik
+---
+
+## Route 53 e Traefik
 
 A intenção futura deste laboratório é utilizar:
 
-Route 53 para DNS
-Traefik como ingress controller
-wildcard DNS para publicação de aplicações no cluster
+* **Route 53** para DNS
+* **Traefik** como ingress controller
+* **Wildcard DNS** para publicação de aplicações no cluster
 
-Exemplo de ideia de publicação futura:
+### Exemplo de publicação futura
 
+```text
 *.rancher.seu-dominio.com
-Observação importante
+```
+
+### Observação importante
 
 O material original do curso usa uma abordagem mais antiga de Traefik.
-Neste laboratório, a intenção é seguir a linha mais atual do Traefik, evitando manifests e instruções antigas/deprecadas.
 
-Nesta fase do projeto, o DNS e o ingress ainda não foram implantados, mas fazem parte da evolução planejada do ambiente.
+Neste laboratório, a intenção é seguir a linha **mais atual do Traefik**, evitando manifests e instruções antigas ou deprecadas.
 
-Etapa atual
+Nesta fase do projeto, o **DNS** e o **ingress** ainda **não foram implantados**, mas fazem parte da evolução planejada do ambiente.
+
+---
+
+## Etapa atual
 
 Até o momento, o laboratório contempla:
 
-infraestrutura base criada na AWS
-Docker instalado nas 4 VMs
-acesso SSH validado
-repositório organizado
-base pronta para a próxima etapa
-Próximo passo
-instalar e configurar o Rancher na VM principal (rancher-server)
-seguir com a evolução do ambiente conforme o andamento do curso
-Próximas etapas planejadas
+* infraestrutura base criada na AWS
+* Docker instalado nas 4 VMs
+* acesso SSH validado
+* repositório organizado
+* base pronta para a próxima etapa
+
+### Próximo passo
+
+* instalar e configurar o **Rancher** na VM principal (`rancher-server`)
+* seguir com a evolução do ambiente conforme o andamento do curso
+
+---
+
+## Próximas etapas planejadas
 
 As próximas fases previstas para este laboratório são:
 
-instalação do Rancher
-definição da função de cada nó
-preparação do ambiente Kubernetes
-configuração de publicação via ingress
-integração com Traefik
-DNS com Route 53
-testes de publicação de aplicações
-Como usar este projeto
-1. Ajustar variáveis
+* instalação do Rancher
+* definição da função de cada nó
+* preparação do ambiente Kubernetes
+* configuração de publicação via ingress
+* integração com Traefik
+* DNS com Route 53
+* testes de publicação de aplicações
+
+---
+
+## Como usar este projeto
+
+### 1. Ajustar variáveis
 
 Copiar e editar os arquivos de exemplo:
 
+```bash
 cp terraform.tfvars.example terraform.tfvars
 cp backend.hcl.example backend.hcl
-2. Inicializar o Terraform
+```
+
+### 2. Inicializar o Terraform
+
+```bash
 terraform init -backend-config="backend.hcl"
-3. Validar o plano
+```
+
+### 3. Validar o plano
+
+```bash
 terraform plan -var-file="terraform.tfvars"
-4. Aplicar a infraestrutura
+```
+
+### 4. Aplicar a infraestrutura
+
+```bash
 terraform apply -var-file="terraform.tfvars"
-Arquivos ignorados no Git
+```
 
-O repositório foi ajustado para não versionar arquivos temporários ou sensíveis, como:
+---
 
-.terraform/
-terraform.tfstate
-terraform.tfstate.backup
-*.tfvars reais
-backend.hcl real
-node_modules/
-chaves .pem
+## Arquivos ignorados no Git
+
+O repositório foi ajustado para **não versionar** arquivos temporários ou sensíveis, como:
+
+* `.terraform/`
+* `terraform.tfstate`
+* `terraform.tfstate.backup`
+* arquivos `*.tfvars` reais
+* `backend.hcl` real
+* `node_modules/`
+* chaves `.pem`
 
 Somente os arquivos necessários para reconstrução do ambiente e documentação do projeto são mantidos no Git.
 
-Observações finais
+---
+
+## Observações finais
 
 Este repositório representa a evolução prática de um laboratório real de estudos.
-Ele ainda não está concluído, e o README será atualizado conforme novas etapas do curso forem sendo implementadas.
 
-No estado atual, o projeto já entrega uma base sólida de infraestrutura para continuar a jornada com Rancher e Kubernetes na AWS.
+Ele ainda **não está concluído**, e o README será atualizado conforme novas etapas do curso forem sendo implementadas.
 
-Autor
+No estado atual, o projeto já entrega uma base sólida de infraestrutura para continuar a jornada com **Rancher** e **Kubernetes** na AWS.
 
-Ezequiel Bomfim
+---
+
+## Autor
+
+**Ezequiel Bomfim**
 
 Projeto de laboratório prático para estudos de infraestrutura, containers, Rancher, Kubernetes e automação com Terraform.
+
+```
+
+Se você quiser, eu posso agora te devolver o **README inteiro já consolidado**, do começo ao fim, em uma versão final pronta para colar no GitHub.
+```
