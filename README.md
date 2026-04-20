@@ -311,6 +311,3 @@ No estado atual, o projeto já entrega uma base sólida de infraestrutura para c
 Projeto de laboratório prático para estudos de infraestrutura, containers, Rancher, Kubernetes e automação com Terraform.
 
 ```
-
-Se você quiser, eu posso agora te devolver o **README inteiro já consolidado**, do começo ao fim, em uma versão final pronta para colar no GitHub.
-```
