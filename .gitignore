@@ -1,0 +1,24 @@
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfvars
+!**/*.tfvars.example
+**/backend.hcl
+*.tfplan
+*.plan
+crash.log
+crash.*.log
+
+# Node
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Secrets / keys
+**/*.pem
+**/*.key
+
+# OS / editor
+.DS_Store
+.vscode/

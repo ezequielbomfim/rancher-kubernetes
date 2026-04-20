@@ -1,0 +1,41 @@
+aws_region   = "us-east-1"
+project_name = "rancher-k8s-lab"
+environment  = "lab"
+
+common_tags = {
+  Owner      = "Ezequiel"
+  CostCenter = "Labs"
+  Purpose    = "Rancher-Kubernetes"
+}
+
+vpc_name           = "lab-vpc-rancher-k8s"
+vpc_cidr           = "10.10.0.0/16"
+public_subnet_name = "lab-public-subnet-1a"
+public_subnet_cidr = "10.10.1.0/24"
+availability_zone  = "us-east-1a"
+
+internet_gateway_name   = "lab-igw-rancher-k8s"
+public_route_table_name = "lab-rt-public-rancher-k8s"
+
+security_group_name        = "lab-sg-rancher-k8s"
+security_group_description = "Shared SG for the Rancher/Kubernetes lab"
+
+ssh_ingress_cidrs = [
+  "160.20.87.154/32"
+]
+
+key_pair_name         = "rancher-kubernetes"
+ssh_private_key_path  = "~/.ssh/rancher-kubernetes.pem"
+instance_type         = "t4g.medium"
+root_volume_size      = 50
+root_volume_type      = "gp3"
+delete_on_termination = true
+
+instance_names = [
+  "lab-rancher-01",
+  "lab-k8s-01",
+  "lab-k8s-02",
+  "lab-k8s-03"
+]
+
+ami_ssm_parameter = "/aws/service/canonical/ubuntu/server/24.04/stable/current/arm64/hvm/ebs-gp3/ami-id"
